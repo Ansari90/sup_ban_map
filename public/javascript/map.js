@@ -1,15 +1,5 @@
 var map = L.map('map').setView([38, -95], 4);
-L.tileLayer.provider('CartoDB.DarkMatterNoLabels').addTo(map);
-
-function onEachFeature(feature, layer) {
-    if (feature.properties && feature.properties.popupContent) {
-        layer.bindPopup(`
-            <h2>${feature.properties.NAME}</h2>
-            <h3 style="margin-bottom: 0.25rem;">Status</h3><span style="text-transform: capitalize">${feature.properties.status}</span>
-            <h3 style="margin: 1rem 0 0.25rem 0;">Senator</h3><span>${feature.properties.popupContent.senator}</span>
-       `);
-    }
-}
+L.tileLayer.provider('CartoDB.DarkMatter').addTo(map);
 
 const color_picker = status => {
     switch (status) {
@@ -20,6 +10,41 @@ const color_picker = status => {
         default:                // banned
             return "red";
     }
+};
+
+const highlightFeature = event => {
+    // var layer = event.target;
+    //
+    // layer.setStyle({
+    //     weight: 5,
+    //     color
+    //     fillOpacity: 0.7
+    // });
+    //
+    // if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+    //     layer.bringToFront();
+    // }
+};
+
+const resetHighlight = event => {
+
+};
+
+const onEachFeature = (feature, layer) => {
+    if (feature.properties && feature.properties.popupContent) {
+        popupBody = `
+            <h2>${feature.properties.NAME}</h2>
+            <h3 style="margin-bottom: 0.25rem;">Status</h3><span style="text-transform: capitalize">${feature.properties.status}</span>            
+            <h3 style="margin: 1rem 0 0.25rem 0;">Senator</h3><span>${feature.properties.popupContent.senator}</span>
+        `;
+
+        layer.bindPopup(feature.properties.COUNTY === undefined ? popupBody : `<h2>${feature.properties.NAME}</h2>`);
+    }
+
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+    })
 };
 
 const zoomer = () => {

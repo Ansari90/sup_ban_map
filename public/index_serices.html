@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>BanMap_Services</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+            integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+            crossorigin=""></script>
+    <script src="./javascript/leaflet-providers.js"></script>
+    <script src="data/cities_and_services.js"></script>
+    <style>
+        .leafly_map {
+            height: 500px;
+        }
+
+        .info {
+            display: flex;
+        }
+
+        .city {
+            border: 1px solid black
+        }
+
+        .providers {
+            border: 1px solid black
+        }
+
+        .recyclers {
+            border: 1px solid black
+        }
+    </style>
+</head>
+<body>
+    <div id="map" class="leafly_map"></div>
+    <div class="city"></div>
+    <div class="info">
+        <div class="providers"></div>
+        <div class="recyclers"></div>
+    </div>
+    <script src="./javascript/map_services.js"></script>
+</body>
+</html>

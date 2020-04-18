@@ -16,7 +16,7 @@ const color_picker = (status) => {
   }
 }
 
-const CITY_MARKERS = CITIES.map(city, index => {
+const CITY_MARKERS = CITIES.map((city, index) => {
   let marker = L.marker(city.coords);
   marker.on('click', () => {
     let city_name = `<h3>${city.name}</h3>`

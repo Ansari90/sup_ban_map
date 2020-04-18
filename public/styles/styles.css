@@ -1,0 +1,58 @@
+.leafly_map {
+  height: 500px;
+}
+
+.composters {
+  display: flex;
+  height: 350px;
+}
+
+.input {
+  border: 1px solid black;
+  padding: 1rem 0 0 1rem;
+  width: 33%;
+}
+
+.input_combo {
+  display: flex;
+  margin: 1rem 0 1rem 0;
+}
+
+.input_label {
+  width: 40%;
+}
+
+.input_box {
+  width: 40%;
+  margin-left: 0.5rem;
+}
+
+.list {
+  border: 1px solid black;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 33%;
+}
+
+.item_div {
+  padding: 0.5rem 0 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.selected_item {
+  background-color: aquamarine !important;
+}
+
+.even_item {
+  background-color: burlywood;
+}
+
+.odd_item {
+  background-color: blanchedalmond;
+}
+
+.data {
+  padding-left: 1rem;
+  border: 1px solid black;
+  width: 33%;
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Composter Services Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+            integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+            crossorigin=""></script>
+    <script src="./javascript/leaflet-providers.js"></script>
+    <style>
+        .leafly_map {
+            height: 500px;
+        }
+
+        .composters {
+            display: flex;
+            height: 350px;
+        }
+
+        .list {
+            border: 1px solid black;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            width: 33%;
+        }
+
+        .item_div {
+            padding: 0.5rem 0 0.5rem 1rem;
+            cursor: pointer;
+        }
+
+        .selected_item {
+            background-color: aquamarine !important;
+        }
+
+        .even_item {
+            background-color: burlywood;
+        }
+
+        .odd_item {
+            background-color: blanchedalmond;
+        }
+
+        .data {
+            padding-left: 1rem;
+            border: 1px solid black;
+            width: 66%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map" class="leafly_map"></div>
+    <div class="composters">
+        <div class="list">
+        </div>
+        <div class="data"></div>
+    </div>
+    <input type="button" value="Show All Composters" onclick="addAllMarkersToMap()" />
+    <script src="./data/compost_services.js"></script>
+    <script src="./javascript/composter_services.js"></script>
+</body>
+</html>

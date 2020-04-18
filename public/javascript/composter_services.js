@@ -1,8 +1,11 @@
 const MAP = L.map('map').setView([38, -95], 4);
 L.tileLayer.provider('CartoDB.Positron').addTo(MAP);
 
-const COMPOSTER_LIST = document.getElementsByClassName("list")[0];
-const COMPOSTER_DATA = document.getElementsByClassName("data")[0];
+const COMPOSTER_LIST = document.getElementsByClassName('list')[0];
+const COMPOSTER_DATA = document.getElementsByClassName('data')[0];
+
+const CITY_INPUT = document.getElementById('location_input');
+const RADIUS_INPUT = document.getElementById('radius_input');
 
 // {
 //  "name":"CompostNow",
@@ -14,6 +17,12 @@ const COMPOSTER_DATA = document.getElementsByClassName("data")[0];
 //  "in_business":"1",
 //  "lat":"35.899942",
 //  "lng":"-78.906192"
+// }
+
+// {
+//   "city":"South Creek",
+//   "lat":"46.9994",
+//   "lng":"-122.3921"
 // }
 
 const COMPOSTER_MARKERS = COMPOSTERS.map((composter, index) => {
@@ -77,4 +86,32 @@ function populateData(composter) {
 
 function addAllMarkersToMap() {
   COMPOSTER_MARKERS.forEach(marker => marker.addTo(MAP));
+}
+
+const USER_FILTERED = {
+  cityCircle: undefined,
+  compostersInRange: []
+};
+function findCompostersNearCity() {
+  let city = CITIES.find(city_object => city_object.city.toLowerCase().includes(CITY_INPUT.value.toLowerCase().trim()));
+  let maxDistance = Math.floor(parseInt(RADIUS_INPUT.value.trim()));
+
+  if(USER_FILTERED.cityCircle !== undefined) {
+    USER_FILTERED.cityCircle.remove();
+  }
+  USER_FILTERED.cityCircle = L.circle([city.lat, city.lng], {
+    color: 'green',
+    fillColor: '#90EE90',
+    fillOpacity: 0.5,
+    radius: maxDistance * 1000
+  }).addTo(MAP);
+
+  USER_FILTERED.compostersInRange = COMPOSTERS.filter(composter => {
+    let distanceInMeters = window.geolib.getPreciseDistance(
+      { latitude: city.lat, longitude: city.lng },
+      { latitude: composter.lat, longitude: composter.lng }
+    );
+
+    return (Math.floor(distanceInMeters/1000) <= maxDistance);
+  });
 }

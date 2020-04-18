@@ -23,16 +23,19 @@
 
             <div class="input_combo">
                 <label class="input_label" for="radius_input">How far should we search?</label>
-                <input class="input_box" id="radius_input" type="text" />
+                <input class="input_box" id="radius_input" type="text" value="100"/>
             </div>
 
-            <input type="button" value="Find Composters" />
+            <input type="button" value="Find Composters" onclick="findCompostersNearCity()" />
         </div>
         <div class="data"></div>
         <div class="list"></div>
     </div>
     <input type="button" value="Show All Composters" onclick="addAllMarkersToMap()" />
+    City data provided by <a href="https://simplemaps.com/data/us-cities" target="_blank">SimpleMaps</a>.
     <script src="./data/compost_services.js"></script>
+    <script src="./data/us_cities.js"></script>
+    <script src="./javascript/geolib.js"></script>
     <script src="./javascript/composter_services.js"></script>
 </body>
 </html>

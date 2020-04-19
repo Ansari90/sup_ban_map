@@ -84,34 +84,59 @@ function populateData(composter) {
   `;
 }
 
-function addAllMarkersToMap() {
-  COMPOSTER_MARKERS.forEach(marker => marker.addTo(MAP));
-}
-
 const USER_FILTERED = {
   cityCircle: undefined,
   compostersInRange: []
 };
-function findCompostersNearCity() {
-  let city = CITIES.find(city_object => city_object.city.toLowerCase().includes(CITY_INPUT.value.toLowerCase().trim()));
-  let maxDistance = Math.floor(parseInt(RADIUS_INPUT.value.trim()));
 
+function removeExistingCityCircle() {
   if(USER_FILTERED.cityCircle !== undefined) {
     USER_FILTERED.cityCircle.remove();
   }
+}
+
+function addCityCircleAndCenter(city, maxDistance) {
+  removeExistingCityCircle();
   USER_FILTERED.cityCircle = L.circle([city.lat, city.lng], {
     color: 'green',
     fillColor: '#90EE90',
     fillOpacity: 0.5,
     radius: maxDistance * 1000
   }).addTo(MAP);
+  MAP.setView([city.lat, city.lng], 6);
+}
 
-  USER_FILTERED.compostersInRange = COMPOSTERS.filter(composter => {
+function addAllMarkersToMap() {
+  removeExistingCityCircle();
+  COMPOSTER_MARKERS.forEach((marker, index) => {
+    document.getElementById(`composter_${index}`).classList.remove('hidden_item');
+    marker.addTo(MAP);
+  });
+}
+
+
+function findCompostersNearCity() {
+  let city = CITIES.find(city_object => city_object.city.toLowerCase() === CITY_INPUT.value.toLowerCase().trim());
+  let maxDistance = Math.floor(parseInt(RADIUS_INPUT.value.trim()));
+
+  if(city === undefined) {
+    alert("Could not find city!");
+    return;
+  }
+  addCityCircleAndCenter(city, maxDistance);
+
+  COMPOSTERS.forEach((composter, index) => {
     let distanceInMeters = window.geolib.getPreciseDistance(
       { latitude: city.lat, longitude: city.lng },
       { latitude: composter.lat, longitude: composter.lng }
     );
 
-    return (Math.floor(distanceInMeters/1000) <= maxDistance);
+    if (Math.floor(distanceInMeters/1000) <= maxDistance) {
+      document.getElementById(`composter_${index}`).classList.remove('hidden_item');
+      COMPOSTER_MARKERS[index].addTo(MAP);
+    } else {
+      document.getElementById(`composter_${index}`).classList.add('hidden_item');
+      COMPOSTER_MARKERS[index].remove();
+    }
   });
 }

@@ -47,5 +47,4 @@ FINAL_OBJECT.meta = {
   facilities: JSON.parse(fs.readFileSync('../data/lots/parsed_to_json/facilities.json'))
 };
 
-console.log(FINAL_OBJECT.meta.composters[0]);
-fs.writeFileSync('../data/parsed_to_json/data.json', JSON.stringify(FINAL_OBJECT));
+fs.writeFileSync('../data/lots/parsed_to_json/data.json', JSON.stringify(FINAL_OBJECT));
